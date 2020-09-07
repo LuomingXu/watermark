@@ -9,7 +9,7 @@ if __name__ == '__main__':
     angle: int = 45  # 倾斜角度, default
     font_size: int = 50  # 文字大小, default
     txt_internal: int = 10  # 文字间隔, default
-    alpha: int = 50  # 水印透明度设置, default
+    alpha: int = 20  # 水印透明度设置, default
 
     # 处理
     image: Image = PIL.Image.open(image_path)  # 原始图片
@@ -31,9 +31,9 @@ if __name__ == '__main__':
     # 获取文本大小
     txt_x, txt_y = watermark_draw.textsize(txt, font = font)
 
-    # 添加文本, 最大距离要够大(1_0000), 才能够覆盖整个图片, 透明50%
-    for i in range(0, 1_0000, txt_x + txt_internal):
-        for j in range(0, 1_0000, txt_y + txt_internal):
+    # 添加文本, 透明20
+    for i in range(0, new_x, txt_x + txt_internal):
+        for j in range(0, new_y, txt_y + txt_internal):
             watermark_draw.text((i, j), text = txt, font = font, fill = (255, 255, 255, alpha))
 
     # 旋转45°
