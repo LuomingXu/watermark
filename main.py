@@ -18,8 +18,8 @@ if __name__ == '__main__':
     new_y = image.height * 3
     # 构造原始图像的9个, 作为处理的图像, 因为会对水印进行45°倾斜, 为了覆盖整个图片, 所以将原始图片复制为9个
     new: Image = PIL.Image.new("RGBA", (new_x, new_y))
-    for i in range(0, new_x, image.size[0]):
-        for j in range(0, new_y, image.size[1]):
+    for i in range(0, new_x, image.width):
+        for j in range(0, new_y, image.height):
             new.paste(image, (i, j))
 
     font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", font_size)  # 使用微软雅黑
