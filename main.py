@@ -2,16 +2,8 @@ import PIL
 from PIL import ImageDraw, ImageFont
 from PIL.Image import Image
 
-if __name__ == '__main__':
-    # 参数
-    image_path: str = 'image.png'  # 需要添加图片的位置
-    txt: str = "水印"  # 水印文字
-    angle: int = 45  # 倾斜角度, default
-    font_size: int = 30  # 文字大小, default
-    txt_internal_x: int = 10  # 文字间隔, default
-    txt_internal_y: int = 5  # 文字间隔, default
-    alpha: int = 20  # 水印透明度设置, default
 
+def gen(image_path: str, txt: str, angle: int, font_size: int, txt_internal_x: int, txt_internal_y: int, alpha: int):
     # 处理
     image: Image = PIL.Image.open(image_path)  # 原始图片
     new_x = image.width * 3
@@ -22,7 +14,7 @@ if __name__ == '__main__':
         for j in range(0, new_y, image.height):
             new.paste(image, (i, j))
 
-    font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", font_size)  # 使用微软雅黑
+    font = ImageFont.truetype("./msyh.ttc", font_size)  # 使用微软雅黑
 
     # 生成同等大小的图片, 透明100%
     watermark = PIL.Image.new("RGBA", new.size, (255, 255, 255, 0))
@@ -48,4 +40,16 @@ if __name__ == '__main__':
 
     # 剪切中间的图片. 要剪切部分的左上角, 和右下角的坐标, 以图片左上角为原点
     after = after.crop((image.width, image.height, new_x - image.width, new_y - image.height))
-    after.save("after.png")
+    after.save("after.%s" % image.format.lower())
+
+
+if __name__ == '__main__':
+    # 参数
+    image_path: str = 'image.png'  # 需要添加图片的位置
+    txt: str = "水印"  # 水印文字
+    angle: int = 45  # 倾斜角度, default
+    font_size: int = 30  # 文字大小, default
+    txt_internal_x: int = 10  # 文字间隔, default
+    txt_internal_y: int = 5  # 文字间隔, default
+    alpha: int = 20  # 水印透明度设置, default
+    gen(image_path, txt, angle, font_size, txt_internal_x, txt_internal_y, alpha)
